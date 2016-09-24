@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Taleworlds</title>
+	<style>html{height:100%;min-height:100%;overflow:hidden}body{margin:0;padding:0;font-family:Arial,sans-serif;font-size:13px;background-color:#000;color:#fff;height:100%}a{color:#daad4e;outline:0;text-decoration:none}a:hover{color:#f7f2be}img{border:0}h1{border-bottom:5px solid Red;display:inline-block;font-size:20px}</style>
+<script type="text/javascript">
+  //<![CDATA[
+  (function(){
+    var a = function() {try{return !!window.addEventListener} catch(e) {return !1} },
+    b = function(b, c) {a() ? document.addEventListener("DOMContentLoaded", b, c) : document.attachEvent("onreadystatechange", b)};
+    b(function(){
+      var a = document.getElementById('cf-content');a.style.display = 'block';
+      setTimeout(function(){
+        var s,t,o,p,b,r,e,a,k,i,n,g,f, SBsBTiM={"C":!+[]+!![]+!![]};
+        t = document.createElement('div');
+        t.innerHTML="<a href='/'>x</a>";
+        t = t.firstChild.href;r = t.match(/https?:\/\//)[0];
+        t = t.substr(r.length); t = t.substr(0,t.length-1);
+        a = document.getElementById('jschl-answer');
+        f = document.getElementById('challenge-form');
+        ;SBsBTiM.C+=+((!+[]+!![]+[])+(!+[]+!![]+!![]+!![]));SBsBTiM.C+=+((+!![]+[])+(!+[]+!![]));a.value = parseInt(SBsBTiM.C, 10) + t.length; '; 121'
+        f.submit();
+      }, 4000);
+    }, false);
+  })();
+  //]]>
+</script>
+
+</head>
+    <body>
+        <div style="width:600px;margin:0px auto;text-align:center">
+        <img style="margin:30px" src="data:image/png; charset=binary;base64,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"><br />
+        <div class="cf-browser-verification cf-im-under-attack">
+  <noscript><h1 data-translate="turn_on_js" style="color:#bd2426;">Please turn JavaScript on and reload the page.</h1></noscript>
+  <div id="cf-content" style="display:none">
+    <div>
+      <div class="bubbles"></div>
+      <div class="bubbles"></div>
+      <div class="bubbles"></div>
+    </div>
+    <h1><span data-translate="checking_browser">Checking your browser before accessing</span> taleworlds.com.</h1>
+    <p data-translate="process_is_automatic">This process is automatic. Your browser will redirect to your requested content shortly.</p>
+    <p data-translate="allow_5_secs">Please allow up to 5 seconds&hellip;</p>
+  </div>
+  <form id="challenge-form" action="/cdn-cgi/l/chk_jschl" method="get">
+    <input type="hidden" name="jschl_vc" value="4be2d6c6267cb6562c285cf5bbce7011"/>
+    <input type="hidden" name="pass" value="1474737228.959-e0ug40vKo4"/>
+    <input type="hidden" id="jschl-answer" name="jschl_answer"/>
+  </form>
+</div>
+
+        </div>
+    </body>
+</html>

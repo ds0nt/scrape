@@ -9,10 +9,12 @@ It is generated from these files:
 	service.proto
 
 It has these top-level messages:
-	CreateTaskRequest
-	CreateTaskResponse
 	Task
 	TaskParams
+	CreateTaskRequest
+	CreateTaskResponse
+	GetTasksRequest
+	GetTasksResponse
 */
 package service
 
@@ -36,49 +38,15 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-// The request message containing the user's name.
-type CreateTaskRequest struct {
-	Task *TaskParams `protobuf:"bytes,1,opt,name=task" json:"task,omitempty"`
-}
-
-func (m *CreateTaskRequest) Reset()                    { *m = CreateTaskRequest{} }
-func (m *CreateTaskRequest) String() string            { return proto.CompactTextString(m) }
-func (*CreateTaskRequest) ProtoMessage()               {}
-func (*CreateTaskRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
-
-func (m *CreateTaskRequest) GetTask() *TaskParams {
-	if m != nil {
-		return m.Task
-	}
-	return nil
-}
-
-// The response message containing the greetings
-type CreateTaskResponse struct {
-	Task *Task `protobuf:"bytes,1,opt,name=task" json:"task,omitempty"`
-}
-
-func (m *CreateTaskResponse) Reset()                    { *m = CreateTaskResponse{} }
-func (m *CreateTaskResponse) String() string            { return proto.CompactTextString(m) }
-func (*CreateTaskResponse) ProtoMessage()               {}
-func (*CreateTaskResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
-
-func (m *CreateTaskResponse) GetTask() *Task {
-	if m != nil {
-		return m.Task
-	}
-	return nil
-}
-
 type Task struct {
-	Id     string      `protobuf:"bytes,1,opt,name=id" json:"id,omitempty"`
+	Id     uint64      `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 	Params *TaskParams `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
 }
 
 func (m *Task) Reset()                    { *m = Task{} }
 func (m *Task) String() string            { return proto.CompactTextString(m) }
 func (*Task) ProtoMessage()               {}
-func (*Task) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+func (*Task) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
 func (m *Task) GetParams() *TaskParams {
 	if m != nil {
@@ -96,13 +64,75 @@ type TaskParams struct {
 func (m *TaskParams) Reset()                    { *m = TaskParams{} }
 func (m *TaskParams) String() string            { return proto.CompactTextString(m) }
 func (*TaskParams) ProtoMessage()               {}
-func (*TaskParams) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+func (*TaskParams) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+// The request message containing the user's name.
+type CreateTaskRequest struct {
+	Task *TaskParams `protobuf:"bytes,1,opt,name=task" json:"task,omitempty"`
+}
+
+func (m *CreateTaskRequest) Reset()                    { *m = CreateTaskRequest{} }
+func (m *CreateTaskRequest) String() string            { return proto.CompactTextString(m) }
+func (*CreateTaskRequest) ProtoMessage()               {}
+func (*CreateTaskRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *CreateTaskRequest) GetTask() *TaskParams {
+	if m != nil {
+		return m.Task
+	}
+	return nil
+}
+
+// The response message containing the greetings
+type CreateTaskResponse struct {
+	Task *Task `protobuf:"bytes,1,opt,name=task" json:"task,omitempty"`
+}
+
+func (m *CreateTaskResponse) Reset()                    { *m = CreateTaskResponse{} }
+func (m *CreateTaskResponse) String() string            { return proto.CompactTextString(m) }
+func (*CreateTaskResponse) ProtoMessage()               {}
+func (*CreateTaskResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+func (m *CreateTaskResponse) GetTask() *Task {
+	if m != nil {
+		return m.Task
+	}
+	return nil
+}
+
+// The request message containing the user's name.
+type GetTasksRequest struct {
+}
+
+func (m *GetTasksRequest) Reset()                    { *m = GetTasksRequest{} }
+func (m *GetTasksRequest) String() string            { return proto.CompactTextString(m) }
+func (*GetTasksRequest) ProtoMessage()               {}
+func (*GetTasksRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+// The response message containing the greetings
+type GetTasksResponse struct {
+	Tasks []*Task `protobuf:"bytes,1,rep,name=tasks" json:"tasks,omitempty"`
+}
+
+func (m *GetTasksResponse) Reset()                    { *m = GetTasksResponse{} }
+func (m *GetTasksResponse) String() string            { return proto.CompactTextString(m) }
+func (*GetTasksResponse) ProtoMessage()               {}
+func (*GetTasksResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+func (m *GetTasksResponse) GetTasks() []*Task {
+	if m != nil {
+		return m.Tasks
+	}
+	return nil
+}
 
 func init() {
-	proto.RegisterType((*CreateTaskRequest)(nil), "service.CreateTaskRequest")
-	proto.RegisterType((*CreateTaskResponse)(nil), "service.CreateTaskResponse")
 	proto.RegisterType((*Task)(nil), "service.Task")
 	proto.RegisterType((*TaskParams)(nil), "service.TaskParams")
+	proto.RegisterType((*CreateTaskRequest)(nil), "service.CreateTaskRequest")
+	proto.RegisterType((*CreateTaskResponse)(nil), "service.CreateTaskResponse")
+	proto.RegisterType((*GetTasksRequest)(nil), "service.GetTasksRequest")
+	proto.RegisterType((*GetTasksResponse)(nil), "service.GetTasksResponse")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -118,6 +148,7 @@ const _ = grpc.SupportPackageIsVersion3
 type ScrapeServiceClient interface {
 	// Sends a greeting
 	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error)
+	GetTasks(ctx context.Context, in *GetTasksRequest, opts ...grpc.CallOption) (*GetTasksResponse, error)
 }
 
 type scrapeServiceClient struct {
@@ -137,11 +168,21 @@ func (c *scrapeServiceClient) CreateTask(ctx context.Context, in *CreateTaskRequ
 	return out, nil
 }
 
+func (c *scrapeServiceClient) GetTasks(ctx context.Context, in *GetTasksRequest, opts ...grpc.CallOption) (*GetTasksResponse, error) {
+	out := new(GetTasksResponse)
+	err := grpc.Invoke(ctx, "/service.ScrapeService/GetTasks", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for ScrapeService service
 
 type ScrapeServiceServer interface {
 	// Sends a greeting
 	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error)
+	GetTasks(context.Context, *GetTasksRequest) (*GetTasksResponse, error)
 }
 
 func RegisterScrapeServiceServer(s *grpc.Server, srv ScrapeServiceServer) {
@@ -166,6 +207,24 @@ func _ScrapeService_CreateTask_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ScrapeService_GetTasks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTasksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScrapeServiceServer).GetTasks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/service.ScrapeService/GetTasks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScrapeServiceServer).GetTasks(ctx, req.(*GetTasksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _ScrapeService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "service.ScrapeService",
 	HandlerType: (*ScrapeServiceServer)(nil),
@@ -173,6 +232,10 @@ var _ScrapeService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateTask",
 			Handler:    _ScrapeService_CreateTask_Handler,
+		},
+		{
+			MethodName: "GetTasks",
+			Handler:    _ScrapeService_GetTasks_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -182,20 +245,23 @@ var _ScrapeService_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("service.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 236 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x74, 0x50, 0x3d, 0x4f, 0xc3, 0x30,
-	0x10, 0xa5, 0x6d, 0xd4, 0x96, 0x43, 0x41, 0x70, 0x2c, 0x21, 0x2c, 0xe0, 0x05, 0x24, 0xa4, 0x0e,
-	0x65, 0x60, 0x61, 0x41, 0x1d, 0x58, 0x91, 0x0b, 0x12, 0x1b, 0x3a, 0xc2, 0x0d, 0x11, 0x21, 0x31,
-	0xf6, 0x85, 0xdf, 0x4f, 0xe2, 0x98, 0x84, 0x08, 0xd8, 0xee, 0xf9, 0xde, 0x87, 0xef, 0x41, 0xec,
-	0xd8, 0x7e, 0xe6, 0x19, 0xaf, 0x8c, 0xad, 0xa4, 0xc2, 0x45, 0x80, 0xea, 0x06, 0x0e, 0x37, 0x96,
-	0x49, 0xf8, 0x81, 0xdc, 0x9b, 0xe6, 0x8f, 0x9a, 0x9d, 0xe0, 0x39, 0x44, 0xd2, 0xc0, 0x64, 0x72,
-	0x3a, 0xb9, 0xd8, 0x5b, 0x1f, 0xad, 0xbe, 0xb5, 0x2d, 0xe7, 0x9e, 0x2c, 0xbd, 0x3b, 0xed, 0x09,
-	0xea, 0x1a, 0xf0, 0xa7, 0xda, 0x99, 0xaa, 0x74, 0x8c, 0x67, 0x23, 0x79, 0x3c, 0x92, 0x07, 0xe1,
-	0x06, 0xa2, 0x16, 0xe1, 0x3e, 0x4c, 0xf3, 0x57, 0x4f, 0xdc, 0xd5, 0xcd, 0x84, 0x97, 0x30, 0x37,
-	0x3e, 0x20, 0x99, 0xfe, 0x9f, 0x1d, 0x28, 0xea, 0x11, 0x60, 0x78, 0xc5, 0x03, 0x98, 0xd5, 0xb6,
-	0x08, 0x5e, 0xed, 0x88, 0xc7, 0xb0, 0x74, 0x42, 0x56, 0x9e, 0x49, 0xbc, 0x5d, 0xa4, 0x17, 0x1e,
-	0xdf, 0x0a, 0xa6, 0xb0, 0xcc, 0x4b, 0x69, 0xac, 0xa9, 0x48, 0x66, 0x7e, 0xd5, 0xe3, 0xf5, 0x13,
-	0xc4, 0xdb, 0xcc, 0x92, 0xe1, 0x6d, 0x17, 0x8d, 0x77, 0x00, 0xc3, 0x95, 0x98, 0xf6, 0x5f, 0xfa,
-	0x55, 0x5c, 0x7a, 0xf2, 0xe7, 0xae, 0xab, 0x45, 0xed, 0xbc, 0xcc, 0x7d, 0xf9, 0x57, 0x5f, 0x01,
-	0x00, 0x00, 0xff, 0xff, 0xba, 0x89, 0x09, 0x3a, 0x8d, 0x01, 0x00, 0x00,
+	// 283 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x74, 0x92, 0x31, 0x4f, 0xc3, 0x30,
+	0x10, 0x85, 0x49, 0x13, 0xda, 0x70, 0x28, 0xd0, 0x1e, 0x4b, 0x1a, 0x16, 0x30, 0x03, 0x48, 0x48,
+	0x1d, 0xca, 0xc0, 0xc2, 0x52, 0x75, 0xe8, 0x8a, 0x5c, 0x98, 0x91, 0x29, 0x1e, 0x22, 0x4a, 0x13,
+	0xec, 0x2b, 0x7f, 0x86, 0x3f, 0x8b, 0xed, 0x38, 0x09, 0xa5, 0x61, 0xf3, 0xdd, 0x7b, 0xef, 0xbb,
+	0x17, 0x29, 0x90, 0x68, 0xa9, 0xbe, 0xf2, 0x95, 0x9c, 0x94, 0xaa, 0xa0, 0x02, 0x07, 0x7e, 0x64,
+	0x73, 0x88, 0x9e, 0x84, 0x7e, 0xc7, 0x13, 0xe8, 0xe5, 0x6f, 0x69, 0x70, 0x11, 0xdc, 0x44, 0xdc,
+	0xbc, 0xf0, 0x16, 0xfa, 0xa5, 0x50, 0xe2, 0x43, 0xa7, 0x3d, 0xb3, 0x3b, 0x9e, 0x9e, 0x4d, 0x6a,
+	0x80, 0xb5, 0x3f, 0x3a, 0x89, 0x7b, 0x0b, 0x7b, 0x06, 0x68, 0xb7, 0x38, 0x84, 0x70, 0xab, 0xd6,
+	0x8e, 0x75, 0xc4, 0xed, 0x13, 0xc7, 0x10, 0x6b, 0x12, 0x8a, 0x5e, 0x04, 0x39, 0x5c, 0xc4, 0x07,
+	0x6e, 0x9e, 0x11, 0x66, 0x10, 0xe7, 0x1b, 0x32, 0x68, 0xb1, 0x4e, 0x43, 0x27, 0x35, 0x33, 0x7b,
+	0x80, 0xd1, 0x5c, 0x49, 0x41, 0xd2, 0xc2, 0xb9, 0xfc, 0xdc, 0x4a, 0x4d, 0x78, 0x0d, 0x11, 0x99,
+	0xd1, 0xe1, 0xff, 0xa9, 0xe5, 0x0c, 0xec, 0x1e, 0xf0, 0x77, 0x5a, 0x97, 0xc5, 0x46, 0x4b, 0xbc,
+	0xdc, 0x89, 0x27, 0x3b, 0x71, 0x1f, 0x1c, 0xc1, 0xe9, 0x42, 0x92, 0x5d, 0x68, 0x7f, 0xd4, 0xb0,
+	0x86, 0xed, 0xca, 0x93, 0xae, 0xe0, 0xd0, 0xda, 0xb5, 0x41, 0x85, 0xfb, 0xa8, 0x4a, 0x9b, 0x7e,
+	0x07, 0x90, 0x2c, 0x57, 0x4a, 0x94, 0x72, 0x59, 0xa9, 0xb8, 0x00, 0x68, 0x6b, 0x61, 0xd6, 0xa4,
+	0xf6, 0xbe, 0x34, 0x3b, 0xef, 0xd4, 0xaa, 0xeb, 0xec, 0x00, 0x67, 0x10, 0xd7, 0x9d, 0x30, 0x6d,
+	0xac, 0x7f, 0x9a, 0x67, 0xe3, 0x0e, 0xa5, 0x46, 0xbc, 0xf6, 0xdd, 0xcf, 0x70, 0xf7, 0x13, 0x00,
+	0x00, 0xff, 0xff, 0x38, 0x15, 0x83, 0xd0, 0x1d, 0x02, 0x00, 0x00,
 }

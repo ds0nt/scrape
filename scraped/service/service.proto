@@ -6,6 +6,19 @@ package service;
 service ScrapeService {
   // Sends a greeting
   rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse) {}
+  rpc GetTasks (GetTasksRequest) returns (GetTasksResponse) {}
+}
+
+
+message Task {
+  uint64 id = 1;
+  TaskParams params = 2;
+}
+
+message TaskParams {
+  string url = 1;
+  uint64 start_at = 2;
+  uint64 interval = 3;
 }
 
 // The request message containing the user's name.
@@ -18,13 +31,13 @@ message CreateTaskResponse {
   Task task = 1;
 }
 
-message Task {
-  string id = 1;
-  TaskParams params = 2;
+
+// The request message containing the user's name.
+message GetTasksRequest {
+
 }
 
-message TaskParams {
-  string url = 1;
-  uint64 start_at = 2;
-  uint64 interval = 3;
+// The response message containing the greetings
+message GetTasksResponse {
+  repeated Task tasks = 1;
 }
