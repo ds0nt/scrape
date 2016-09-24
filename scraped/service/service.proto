@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package service;
+
+// The greeting service definition.
+service ScrapeService {
+  // Sends a greeting
+  rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse) {}
+}
+
+// The request message containing the user's name.
+message CreateTaskRequest {
+  TaskParams task = 1;
+}
+
+// The response message containing the greetings
+message CreateTaskResponse {
+  Task task = 1;
+}
+
+message Task {
+  string id = 1;
+  TaskParams params = 2;
+}
+
+message TaskParams {
+  string url = 1;
+  uint64 start_at = 2;
+  uint64 interval = 3;
+}
