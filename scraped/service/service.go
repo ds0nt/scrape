@@ -11,7 +11,7 @@ import (
 )
 
 type ScrapeDaemon struct {
-	ScrapeService
+	ScrapeServiceServer
 	logger     *logrus.Logger
 	dataDir    string
 	scrapedDir string
@@ -20,6 +20,7 @@ type ScrapeDaemon struct {
 
 func NewScrapeDaemon(dataDir string) *ScrapeDaemon {
 	s := ScrapeDaemon{
+		logger:  logrus.StandardLogger(),
 		dataDir: dataDir,
 	}
 
@@ -27,11 +28,12 @@ func NewScrapeDaemon(dataDir string) *ScrapeDaemon {
 	s.tasksDB = filepath.Join(s.scrapedDir, "tasks.db")
 	return &s
 }
-func (s *scraped) l() *logrus.Logger {
+
+func (s *ScrapeDaemon) l() *logrus.Logger {
 	return s.logger
 }
 
-func (s *scraped) start(ctx context.Context) error {
+func (s *ScrapeDaemon) Start(ctx context.Context) error {
 	s.l().Info("Scrape Daemon Starting")
 
 	// initialize directories

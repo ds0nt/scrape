@@ -8,4 +8,7 @@ regenerate:
 build:
 	go build .
 
+sandbox: regenerate build
+	./scraped -data-dir sandbox
+
 .PHONY: all build regenerate
